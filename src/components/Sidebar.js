@@ -3,16 +3,10 @@ import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Button from 'material-ui/Button';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
-import Avatar from 'material-ui/Avatar';
-
+import ChatList from './ChatList';
 import RestoreIcon from 'material-ui-icons/Restore';
 import ExploreIcon from 'material-ui-icons/Explore';
-import AddIcon from 'material-ui-icons/Add';
-
-import titleInitials from '../utils/title-initials';
 
 const styles = theme => ({
   drawerPaper: {
@@ -24,17 +18,7 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
     paddingLeft: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
-  },
-  chatsList: {
-    height: 'calc(100% - 56px)',
-    overflowY: 'scroll',
-  },
-  newChatButton: {
-    position: 'absolute',
-    left: 'auto',
-    right: theme.spacing.unit * 3,
-    bottom: theme.spacing.unit * 3 + 48, // + bottom navigation
-  },
+  }
 });
 
 const Sidebar = ({ classes, chats }) => (
@@ -52,21 +36,7 @@ const Sidebar = ({ classes, chats }) => (
       />
     </div>
     <Divider />
-    <List className={classes.chatsList}>
-      {chats.map((chat, index) => (
-        <ListItem key={index} button>
-          <Avatar>{titleInitials(chat.title)}</Avatar>
-          <ListItemText primary={chat.title} />
-        </ListItem>
-      ))}
-    </List>
-    <Button
-      variant="fab"
-      color="primary"
-      className={classes.newChatButton}
-    >
-      <AddIcon />
-    </Button>
+    <ChatList chats={chats} />
     <BottomNavigation showLabels>
       <BottomNavigationAction label="My Chats" icon={<RestoreIcon />} />
       <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
